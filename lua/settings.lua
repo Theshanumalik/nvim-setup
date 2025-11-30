@@ -21,7 +21,7 @@ o.scrolloff = 8
 o.number = true
 o.numberwidth = 5
 o.relativenumber = true
-o.signcolumn = 'yes:2'
+o.signcolumn = "yes:2"
 o.cursorline = true
 
 -- Better editing experience
@@ -35,12 +35,12 @@ o.tabstop = 2
 o.shiftwidth = 0
 o.softtabstop = -1 -- If negative, shiftwidth value is used
 o.list = true
-o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+o.listchars = "trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂"
 -- o.listchars = 'eol:¬,space:·,lead: ,trail:·,nbsp:◇,tab:→-,extends:▸,precedes:◂,multispace:···⬝,leadmultispace:│   ,'
 -- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 
 -- Case insensitive searching UNLESS /C or capital in search
 o.ignorecase = true
@@ -63,13 +63,13 @@ o.splitright = true
 o.splitbelow = true
 
 -- Preserve view while jumping
-o.jumpoptions = 'view'
+o.jumpoptions = "view"
 
 -- Stable buffer content on window open/close events.
-o.splitkeep = 'screen'
+o.splitkeep = "screen"
 
 -- Improve diff
-vim.opt.diffopt:append('linematch:60')
+vim.opt.diffopt:append("linematch:60")
 
 -- Smooth scrolling
 o.smoothscroll = true
@@ -85,5 +85,33 @@ o.smoothscroll = true
 -- o.foldminlines = 1
 
 -- Map <leader> to space
-g.mapleader = ' '
-g.maplocalleader = ' '
+g.mapleader = " "
+g.maplocalleader = " "
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
+
+-- Formate on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+	callback = function(args)
+		if vim.lsp.buf_is_attached(args.buf) then
+			vim.lsp.buf.format({ bufnr = args.buf, async = false })
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+	callback = function(args)
+		if vim.lsp.buf_is_attached(args.buf) then
+			vim.lsp.buf.format({ bufnr = args.buf, async = false })
+		end
+	end,
+})
