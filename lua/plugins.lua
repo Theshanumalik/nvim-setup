@@ -19,6 +19,27 @@ require("lazy").setup({
 	-- Core dependency
 	{ "nvim-lua/plenary.nvim" },
 
+	-- Theme example (you can add more)
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "macchiato",
+				transparent_background = true,
+				integrations = {
+					cmp = false,
+					mason = false,
+				},
+			})
+
+			vim.cmd.colorscheme("catppuccin")
+		end,
+	},
+	-- { "folke/tokyonight.nvim" },
+	-- { "morhetz/gruvbox" },
+
 	-- Icons
 	{
 		"kyazdani42/nvim-web-devicons",
@@ -64,9 +85,6 @@ require("lazy").setup({
 	},
 	{ "nvim-telescope/telescope-symbols.nvim" },
 
-	-- Theme example (you can add more)
-	--	{ "folke/tokyonight.nvim" },
-	{ "morhetz/gruvbox" },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -74,7 +92,7 @@ require("lazy").setup({
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "gruvbox",
+					theme = "catppuccin",
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = {
@@ -176,7 +194,7 @@ require("lazy").setup({
 				-- python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
 	},

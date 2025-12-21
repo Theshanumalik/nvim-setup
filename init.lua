@@ -3,3 +3,4 @@ vim.g.loaded_netrwPlugin = 1
 
 require("settings")
 require("plugins")
+require("keybinds")
